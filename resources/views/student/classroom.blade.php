@@ -22,8 +22,29 @@
         <h1 style="font-size: 22px">Join Classroom</h1>
         <br>
         <br>
-        @if (session('status'))
-            <h6 class="alert alert-success">{{ session('status') }}</h6>
+        @if ($message = Session::get('success-join'))
+            <div class="alert alert-success">
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+        @if ($message = Session::get('wrongkey'))
+            <div class="alert alert-danger">
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+        @if ($message = Session::get('again'))
+            <div class="alert alert-danger">
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         <form action="{{ url('/classroom') }}" method="POST">
             @csrf

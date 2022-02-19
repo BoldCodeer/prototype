@@ -27,7 +27,7 @@
                                 <select>
                                         @if(isset($check_ins))
                                             @foreach($check_ins as $chekin)
-                                                <option>{{ $chekin->room->rname }}</option>
+                                                <option name="room_name" value="{{ $chekin->id }}">{{ $chekin->room->rname }}</option>
                                             @endforeach
                                         @endif
                                 </select>
