@@ -21,15 +21,22 @@
         <br>
         <h1 style="font-size: 22px">Create Group Members</h1>
         <br>
-        <br>
         @if (session('status'))
             <h6 class="alert alert-success">{{ session('status') }}</h6>
+        @endif
+
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                <li class="text-red-500 list-none">
+                    {{ $error }}
+                </li>
+            @endforeach
         @endif
         <form action="members" method="POST">
             @csrf
             <div class="form-group">
                 <label for="exampleFormControlInput1">Group Name</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" style="border-color: lightgray;border-radius: 4px" name="gname" placeholder="Team Example">
+                <input type="text" class="form-control" id="exampleFormControlInput1" style="border-color: lightgray;border-radius: 4px" name="group_name" placeholder="Team Example">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Members</label>

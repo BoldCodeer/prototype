@@ -26,9 +26,19 @@ class StudentController extends Controller
      */
     public function membersCreate(Request $request) {
 
+        $request->validate([
+            'user_id' => 'required|unique:groups',
+            'group_name'   => 'required|unique:groups',
+            'member1' => 'required|unique:groups',
+            'member2' => 'required|unique:groups',
+            'member3' => 'required|unique:groups',
+            'member4' => 'required|unique:groups',
+            'yearnsection' => 'required',
+        ]);
+
         $memdata = new group;
         $memdata->user_id = $request->input('user_id');
-        $memdata->group_name = $request->input('gname');
+        $memdata->group_name = $request->input('group_name');
         $memdata->member1 = $request->input('member1');
         $memdata->member2 = $request->input('member2');
         $memdata->member3 = $request->input('member3');
@@ -50,8 +60,9 @@ class StudentController extends Controller
         ]);
         $fileModel = new Submission;
         $fileModel->user_id = $req->input('user_id');
-        $room = Auth::user()->room;
-        $fileModel->room_id = Room::where('user_id','LIKE','%'.$room.'%')->first();
+        $fileModel->room_id = $req->input('room_id');
+        //$room = Auth::user()->room;
+        //$fileModel->room_id = Room::where('user_id','LIKE','%'.$room.'%')->first();
         if($req->file()) {
             $fileName = $req->file->getClientOriginalName();
             $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
@@ -83,11 +94,24 @@ class StudentController extends Controller
      * @return Application|Factory|View
      */
     public function searchRoom(Request $request) {
+
+        $request->validate([
+            'search_room' => 'required',
+        ]);
+
         $term = $request->input('search_room');
         $filterData = Room::where('rname','LIKE','%'.$term.'%')
             ->get();
         //dd($filterData);
-        return view('student.classroom', compact('filterData'));
+        if($filterData == true) {
+            return view('student.classroom', compact('filterData'));
+        }
+        else{
+            return redirect('/classroom')->with('again', 'No data found please search again');
+        }
+
+        //dd($filterData);
+
     }
 
     public function joinRoom(Request $request) {
@@ -104,7 +128,11 @@ class StudentController extends Controller
             $enroll->save();
             //dd($enroll->room_id);
             return back()
-                ->with('success','You Successfully Join.');
+                ->with('success-join','You successfully join... back to the dashboard and transfer a document in the chose rooms.');
+        }
+        else {
+            return back()
+                ->with('wrongkey','Wrong key please type again');
         }
     }
 

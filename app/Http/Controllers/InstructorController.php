@@ -14,7 +14,7 @@ class InstructorController extends Controller
     {
     	$data = new room;
 
-//        $data->user_id = $request->input('user_id');
+        $data->user_id = $request->input('user_id');
     	$data->rname = $request->input('name');
     	$data->rkey = $request->input('key');
     	$data->description = $request->input('desc');

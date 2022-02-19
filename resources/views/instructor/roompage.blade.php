@@ -40,7 +40,7 @@
 			    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc"></textarea>
 			  </div>
 			  <br>
-{{--			  <input type="text" class="form-control" name="user_id" value="{{ Auth::user()->id }}" hidden>--}}
+			  <input type="text" class="form-control" name="user_id" value="{{ Auth::user()->id }}" hidden>
 			  <button class="btn btn-success" type="submit" style="background-color: green">Create</button>
 			</form>
 		</div>
