@@ -60,7 +60,8 @@ class StudentController extends Controller
         ]);
         $fileModel = new Submission;
         $fileModel->user_id = $req->input('user_id');
-        $fileModel->room_id = $req->input('room_id');
+        $fileModel->room_id = $req->input('room_name');
+        //dd($fileModel->room_id);
         //$room = Auth::user()->room;
         //$fileModel->room_id = Room::where('user_id','LIKE','%'.$room.'%')->first();
         if($req->file()) {
@@ -83,9 +84,8 @@ class StudentController extends Controller
         // $files = File::all();
         $user = Auth::user();
         $groups = Auth::user()->groups;
-        $files    = Auth::user()->file;
+        $files    = Auth::user()->files;
         $check_ins = $user->check_ins;
-        //hello
         return view('/dashboard', compact('groups', 'files', 'check_ins'));
     }
 

@@ -10,7 +10,19 @@ class Submission extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'room_id',
         'name',
         'file_path'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function rooms()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

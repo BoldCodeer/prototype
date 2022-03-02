@@ -24,10 +24,10 @@
                                 </div>
                             @endif
                             <div class="form-group">
-                                <select>
+                                <select name="room_name">
                                         @if(isset($check_ins))
                                             @foreach($check_ins as $chekin)
-                                                <option name="room_name" value="{{ $chekin->id }}">{{ $chekin->room->rname }}</option>
+                                                <option value="{{ $chekin->room_id }}">{{ $chekin->room->rname }}</option>
                                             @endforeach
                                         @endif
                                 </select>
@@ -82,7 +82,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if (is_array($files))
+                        @if (isset($files))
                             @foreach ($files as $file)
                                 <tr>
                                     <td>{{ $file->name }}</td>
